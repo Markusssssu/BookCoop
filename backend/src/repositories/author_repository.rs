@@ -1,10 +1,8 @@
 use sqlx::query;
-
 use crate::struct_entity::author::Author;
 
 
-pub fn create(query: String) {
-
+pub fn create(author: &Author, query: String) {
    
 }
 
