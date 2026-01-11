@@ -1,5 +1,7 @@
-CREATE TABLE IF NOT EXISTS authors (
-    id SERIAL PRIMARY KEY,
-    full_name VARCHAR(255) NOT NULL,
-    bio TEXT
+CREATE TABLE author (
+    id BIGSERIAL PRIMARY KEY,
+    firstname: TEXT NOT NULL,
+    lastname: TEXT NOT NULL,
+    middlename: TEXT,
+    bio: TEXT
 );
