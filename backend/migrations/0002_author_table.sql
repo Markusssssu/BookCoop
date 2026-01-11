@@ -3,5 +3,5 @@ CREATE TABLE author (
     firstname: TEXT NOT NULL,
     lastname: TEXT NOT NULL,
     middlename: TEXT,
-    bio: TEXT
+    bio: TEXT,
 );
