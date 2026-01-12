@@ -6,8 +6,6 @@ mod presentation;
 /*================== */
 
 /*========use crate::========*/
-use crate::infrastructure::db::connection::DBConnection;
-use crate::infrastructure::log::logger_init::tracing_initialization;
 use crate::infrastructure::server::handler::Handler;
 /*================== */
 
