@@ -10,3 +10,4 @@ pub trait BookRepository {
     async fn update(&self, book: Book) -> Result<Book, Error>;
     async fn delete(&self, id: i64) -> Result<(), Error>;
 }
+
