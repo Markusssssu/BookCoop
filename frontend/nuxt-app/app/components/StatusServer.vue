@@ -1,7 +1,3 @@
-<script setup lang="ts">
-const { online, checking } = useServerStatus()
-</script>
-
 <template>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
     <UCard class="bg-gray-900 text-white">
@@ -31,3 +27,8 @@ const { online, checking } = useServerStatus()
     </UCard>
   </div>
 </template>
+
+<script setup lang="ts">
+const { online, checking } = useServerStatus()
+</script>
+
