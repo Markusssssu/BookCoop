@@ -13,7 +13,8 @@
 
     <!-- Сетка книг -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <UCard v-for="i in 6" :key="i" class="hover:ring-2 ring-primary-500 transition-all">
+      <!-- Цикл для книг -->
+      <UCard v-for="i in 0" :key="i" class="hover:ring-2 ring-primary-500 transition-all">
         <div class="flex gap-4">
           <div class="w-24 h-32 bg-gray-200 dark:bg-gray-800 rounded flex items-center justify-center">
             <UIcon name="i-lucide-book-image" class="text-3xl opacity-20" />

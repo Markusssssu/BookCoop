@@ -25,7 +25,6 @@
           <span :class="s.delta.includes('+') ? 'text-green-500' : 'text-gray-400'">
             {{ s.delta }}
           </span>
-          <span class="text-gray-400">за 7 дней</span>
         </div>
       </UCard>
     </div>
@@ -62,32 +61,25 @@
         </div>
       </UCard>
     </div>
-
-    <!-- Нижняя секция: Быстрые действия -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <UCard class="bg-gray-900 text-white">
-        <h4 class="font-bold mb-2">Статус API (Rust)</h4>
-        <div class="flex items-center gap-2">
-          <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-          <span class="text-sm opacity-80">Система стабильна</span>
-        </div>
-      </UCard>
-      <!-- Сюда можно добавить еще виджеты -->
-    </div>
+    <!-- Статус сервера -->
+    <StatusServer/>
   </UContainer>
 </template>
 
+<!-- Данные c информацией для Dashboard -->
 <script setup lang="ts">
 const stats = [
-  { label: 'Книг в базе', value: '1,240', delta: '+12%', icon: 'i-lucide-library' },
-  { label: 'Активных авторов', value: '48', delta: '+2', icon: 'i-lucide-users' },
-  { label: 'Выдано сегодня', value: '85', delta: '-5%', icon: 'i-lucide-book-up' },
-  { label: 'Загрузка сервера', value: '14ms', delta: 'Stable', icon: 'i-lucide-cpu' }
+  { label: 'Книг в базе', value: '', delta: '', icon: 'i-lucide-library' },
+  { label: 'Активных авторов', value: '', delta: '', icon: 'i-lucide-users' },
+  { label: 'Выдано сегодня', value: '', delta: '', icon: 'i-lucide-book-up' },
+  { label: 'Загрузка сервера', value: '', delta: 'Stable', icon: 'i-lucide-cpu' }
 ]
 
+/*==========Книжные заказы===========*/
+
 const recentOrders = [
-  { id: '#3401', book: 'Rust for C++ Devs', user: 'alex_dev', status: 'Выдано' },
-  { id: '#3402', book: 'Clean Architecture', user: 'mariya_r', status: 'Возврат' },
-  { id: '#3403', book: 'The Great Gatsby', user: 'ivan_00', status: 'Ожидание' },
+  { id: '', book: '', user: '', status: '' },
 ]
 </script>
+
+/*==================================*/

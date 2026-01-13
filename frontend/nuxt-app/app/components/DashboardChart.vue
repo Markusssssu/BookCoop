@@ -36,11 +36,11 @@ const chartData = {
   datasets: [
     {
       label: 'Активность библиотеки',
-      backgroundColor: 'rgba(59, 130, 246, 0.1)', // Цвет primary с прозрачностью
+      backgroundColor: 'rgba(59, 130, 246, 0.1)', 
       borderColor: '#3b82f6',
-      data: [40, 39, 50, 40, 70, 80, 95], // Пример цифр
+      data: [], 
       fill: true,
-      tension: 0.4 // Сглаживание линий
+      tension: 1 
     }
   ]
 }

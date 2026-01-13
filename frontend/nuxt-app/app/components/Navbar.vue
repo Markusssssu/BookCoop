@@ -29,7 +29,7 @@ const handleLogout = async () => {
             <div class="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center group-hover:rotate-12 transition-transform">
               <UIcon name="i-lucide-library" class="text-white text-xl" />
             </div>
-            <span class="font-black text-xl tracking-tighter uppercase">Blazing<span class="text-primary-500">Lib</span></span>
+            <span class="font-black text-xl tracking-tighter uppercase">Book<span class="text-primary-500">Coop</span></span>
           </NuxtLink>
 
           <UNavigationMenu :items="navItems" class="hidden md:flex" />

@@ -12,14 +12,14 @@
         <h2 class="text-2xl font-bold mb-4">Все авторы</h2>
         <UCard>
           <div class="divide-y divide-gray-200 dark:divide-gray-800">
-            <div v-for="author in ['Лев Толстой', 'Фёдор Достоевский', 'Антон Чехов']" 
+            <div v-for="author in []" 
                  :key="author" 
                  class="py-4 flex items-center justify-between">
               <div class="flex items-center gap-3">
                 <UAvatar :alt="author" size="lg" />
                 <div>
                   <div class="font-medium">{{ author }}</div>
-                  <div class="text-sm text-gray-500">12 написанных книг</div>
+                  <div class="text-sm text-gray-500">0 написанных книг</div>
                 </div>
               </div>
               <UButton label="Профиль" variant="outline" size="sm" />
