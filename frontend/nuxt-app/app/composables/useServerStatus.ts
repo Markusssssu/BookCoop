@@ -8,7 +8,7 @@ export const useServerStatus = () => {
     checking.value = true
 
     try {
-      await $fetch('/api/health', {
+      await $fetch('localhost:8080/api/health', {
         timeout: 2000
       })
 

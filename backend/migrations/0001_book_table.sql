@@ -1,5 +1,0 @@
-CREATE TABLE book (
-    id BIGSERIAL PRIMARY KEY,
-    title TEXT NOT NULL,
-    isbn TEXT UNIQUE,
-);

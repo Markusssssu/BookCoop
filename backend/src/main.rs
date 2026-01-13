@@ -1,28 +1,27 @@
 /*========mod========*/
-mod application;
-mod domain;
-mod infrastructure;
-mod presentation;
 /*================== */
 
 /*========use crate::========*/
-use crate::infrastructure::server::handler::Handler;
-use crate::infrastructure::db::connection::DBConnection;
-use crate::infrastructure::log::logger_init::tracing_initialization;
 /*================== */
 
 /*========use========*/
+use axum::{routing::{get}, Router};
 use std::error::Error;
 /*================== */
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn Error>> {
+async fn main() -> Result<(), Box<dyn Error>> { 
 
-    let log_init = tracing_initialization().await;
-    let db_conn = DBConnection::new().await;
-    let handler = Handler::new().await;
-    handler.run().await;
+    let app = Router::new()
+        .route("/api/health", get(health_check));
 
-    Ok(()) 
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await?;
+    
+    axum::serve(listener, app).await?;
+
+    Ok(())
 }
-   
+
+async fn health_check() -> &'static str {
+    "OK"
+}

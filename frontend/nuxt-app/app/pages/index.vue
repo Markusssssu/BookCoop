@@ -1,27 +1,3 @@
-<script setup lang="ts">
-const features = [
-  {
-    title: 'Безопасность Rust',
-    description: 'Бэкенд на Rust без утечек памяти и с максимальной производительностью.',
-    icon: 'i-lucide-shield-check'
-  },
-  {
-    title: 'Nuxt UI v3',
-    description: 'Интерфейс на Tailwind v4 с полной поддержкой светлой и тёмной темы.',
-    icon: 'i-lucide-zap'
-  },
-  {
-    title: 'Управление данными',
-    description: 'Связи между книгами и авторами с реактивной валидацией.',
-    icon: 'i-lucide-database'
-  }
-]
-
-const recentActions = [
-  { user: '', action: '', target: '', time: '' },
-]
-</script>
-
 <template>
   <div class="space-y-24">
 
@@ -133,3 +109,27 @@ const recentActions = [
     </section>
   </div>
 </template>
+
+<script setup lang="ts">
+const features = [
+  {
+    title: 'Безопасность Rust',
+    description: 'Бэкенд на Rust без утечек памяти и с максимальной производительностью.',
+    icon: 'i-lucide-shield-check'
+  },
+  {
+    title: 'Nuxt UI v3',
+    description: 'Интерфейс на Tailwind v4 с полной поддержкой светлой и тёмной темы.',
+    icon: 'i-lucide-zap'
+  },
+  {
+    title: 'Управление данными',
+    description: 'Связи между книгами и авторами с реактивной валидацией.',
+    icon: 'i-lucide-database'
+  }
+]
+
+const recentActions = [
+  { user: '', action: '', target: '', time: '' },
+]
+</script>
