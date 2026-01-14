@@ -1,10 +1,18 @@
-use serde::Serialize;
+use serde::{Serialize, Deserialize};
+use sqlx::prelude::FromRow;
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize, FromRow)]
 pub struct Book {
-    pub book_id: i32,
     pub title: String,
     pub author: String,
-    pub genre: Option<String>,
-    pub page_count: Option<i32>,
+    pub genre: String,
+    pub page_count: i32,
+}
+
+#[derive(Deserialize)]
+pub struct NewBook {
+    pub title: String,
+    pub author: String,
+    pub genre: String,
+    pub page_count: i32,
 }

@@ -1,9 +1,16 @@
-use serde::Serialize;
+use serde::{Serialize, Deserialize};
+use chrono::{NaiveDate};
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize, sqlx::FromRow)]
 pub struct Author {
-    pub author_id: i32,
     pub full_name: String,
-    pub date_of_birth: Option<String>,
-    pub biography: Option<String>,
+    pub date_of_birth: NaiveDate,
+    pub biography: String,
 }
+
+#[derive(Deserialize)]
+pub struct NewAuthor {
+    pub full_name: String,
+    pub date_of_birth: NaiveDate,
+    pub biography: String,
+} 
