@@ -16,8 +16,8 @@ impl AdminRepository for SQLAdminRepository {
             VALUES ($1, $2)
             "#
         )
-            .bind(admin.)
-            .bind(admin.)
+            .bind(admin.full_name)
+            .bind(admin.keywords)
             .fetch_one(&self.pool)
             .await?;
 
@@ -66,7 +66,7 @@ impl AdminRepository for SQLAdminRepository {
             "#
         )
             .bind(admin.full_name)
-            .bind(admin.keyword)
+            .bind(admin.keywords)
             .bind(id)
             .fetch_one(&self.pool)
             .await?;

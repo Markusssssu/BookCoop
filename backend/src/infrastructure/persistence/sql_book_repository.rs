@@ -67,7 +67,7 @@ impl BookRepository for SQLBookRepository {
         )
             .bind(book.title)
             .bind(book.author)
-            .bind(book.published_year)
+            .bind(book.genre)
             .bind(id)
             .fetch_one(&self.pool)
             .await?;

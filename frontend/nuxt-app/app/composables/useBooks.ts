@@ -23,6 +23,13 @@ export function useBooks() {
     await fetchBooks()
   }
 
+  async function deleteBook(payload: any) {
+    await $fetch(API_URL, {
+      method: "DELETE",
+      body: payload
+    })
+  }
+
   return {
     books,
     loadingList,

@@ -1,3 +1,4 @@
+use async_trait::async_trait;
 use sqlx::{PgPool, Row, FromRow};
 use crate::application::repositories::book_issues_repository::BookIssuesRepository;
 use crate::domain::book_issues::{BookIssue, NewBookIssue};
@@ -6,6 +7,7 @@ pub struct SQLBookIssuesRepository {
     pool: PgPool,
 }
 
+#[async_trait]
 impl BookIssuesRepository for SQLBookIssuesRepository {
     async fn insert(&self, book: NewBookIssue) -> Result<BookIssue, anyhow::Error> {
         let row = sqlx::query_as::<_, BookIssue>(
@@ -47,7 +49,6 @@ impl BookIssuesRepository for SQLBookIssuesRepository {
     }
 
     async fn find_by_title(&self, title: &str) -> Result<Vec<BookIssue>, anyhow::Error> {
-        // Делаем JOIN с таблицей Books, чтобы фильтровать по названию
         let rows = sqlx::query_as::<_, BookIssue>(
             r#"
             SELECT bi.issue_id, bi.book_id, bi.author_id, bi.issue_date, bi.return_date
