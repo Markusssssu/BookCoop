@@ -1,9 +1,4 @@
-pub mod get_books;
-pub mod get_authors;
-pub mod get_dashboard;
-pub mod post_books;
-pub mod post_authors;
-pub mod delete_authors;
-pub mod delete_books;
-pub mod put_authors;
-pub mod put_books;
+pub mod admin_service;
+pub mod author_service;
+pub mod book_issues_service;
+pub mod book_service;

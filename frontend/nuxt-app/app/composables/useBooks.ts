@@ -1,30 +1,32 @@
-export const useBooks = () => {
-  const config = useRuntimeConfig()
-  const loading = ref(false)
-  const error = ref<string | null>(null)
+import { ref } from 'vue'
 
-  const createBook = async (bookData: any) => {
-    loading.value = true
-    error.value = null
-    
+const API_URL = 'http://localhost:8080/api/books'
+
+export function useBooks() {
+  const books = ref<any[]>([])
+  const loadingList = ref(false)
+
+  async function fetchBooks() {
+    loadingList.value = true
     try {
-      const response = await $fetch('/api/books', {
-        baseURL: 'http://localhost:8080', 
-        method: 'POST',
-        body: bookData,
-      })
-      return response
-    } catch (err: any) {
-      error.value = err.data?.message || 'Ошибка при сохранении книги'
-      throw err
+      books.value = await $fetch(API_URL)
     } finally {
-      loading.value = false
+      loadingList.value = false
     }
   }
 
+  async function createBook(payload: any) {
+    await $fetch(API_URL, {
+      method: 'POST',
+      body: payload
+    })
+    await fetchBooks()
+  }
+
   return {
-    createBook,
-    loading,
-    error
+    books,
+    loadingList,
+    fetchBooks,
+    createBook
   }
 }
