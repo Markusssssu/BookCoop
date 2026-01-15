@@ -2,11 +2,11 @@
   <UContainer class="py-8">
     <div class="flex justify-between items-center mb-6">
       <h1 class="text-3xl font-bold">Каталог книг</h1>
-      
+
       <!-- Модальное окно для добавления -->
       <UModal title="Новая книга" v-model="isModalOpen">
         <UButton label="Добавить книгу" icon="i-lucide-plus" color="primary" />
-        
+
         <template #content>
           <div class="p-4">
             <!-- Передаем функцию обновления в компонент формы, если нужно закрывать после успеха -->
@@ -23,9 +23,9 @@
 
     <!-- Сетка книг (отображается, когда данные загружены) -->
     <div v-else-if="books && books.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <UCard 
-        v-for="book in books" 
-        :key="book.id" 
+      <UCard
+        v-for="book in books"
+        :key="book.id"
         class="hover:ring-2 ring-primary-500 transition-all cursor-default"
       >
         <div class="flex gap-4">
@@ -33,7 +33,7 @@
           <div class="w-24 h-32 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center flex-shrink-0">
             <UIcon name="i-lucide-book-open" class="text-3xl opacity-20" />
           </div>
-          
+
           <div class="flex-1 min-w-0">
             <h3 class="font-bold text-lg truncate" :title="book.title">
               {{ book.title }}
@@ -51,11 +51,11 @@
         <template #footer>
           <div class="flex justify-end gap-2">
             <UButton icon="i-lucide-pencil" variant="ghost" color="neutral" size="sm" />
-            <UButton 
-              icon="i-lucide-trash" 
-              variant="ghost" 
-              color="error" 
-              size="sm" 
+            <UButton
+              icon="i-lucide-trash"
+              variant="ghost"
+              color="error"
+              size="sm"
               @click="deleteBook(book.id)"
             />
           </div>
@@ -77,8 +77,8 @@ const { data: books, refresh, pending } = await useFetch('http://localhost:8080/
 const isModalOpen = ref(false)
 
 function onBookAdded() {
-  isModalOpen.value = false 
-  refresh() 
+  isModalOpen.value = false
+  refresh()
 }
 
 async function deleteBook(id: number) {
