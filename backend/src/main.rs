@@ -117,7 +117,7 @@ async fn main() -> anyhow::Result<()> {
 
     // Основной роутер
     let app_router = Router::new()
-        .route("/api/health", get(|| async { StatusCode::OK }))
+        .route("/health", get(|| async { StatusCode::OK }))
         .merge(book_routes(book_service.clone()))
         .merge(author_routes(author_service.clone()))
         .merge(book_issues_routes(issue_service.clone()));
