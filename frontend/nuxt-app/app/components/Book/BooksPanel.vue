@@ -1,10 +1,10 @@
 <template>
   <UContainer class="py-8">
     <!-- Заголовок + кнопка добавить книгу -->
-    <BookBooksHeader v-model="isModalOpen" @created="refreshBooks" />
+    <BooksHeader @created="refreshBooks" />
 
     <!-- Сетка книг -->
-    <BookBooksGrid :books="books" :pending="pending" @delete="deleteBook" />
+    <BooksGrid :books="books" :pending="pending" @delete="deleteBook" />
 
     <!-- Модальное окно с формой создания книги -->
     <BookCreateModal v-model="isModalOpen" @created="refreshBooks" />
@@ -12,23 +12,35 @@
 </template>
 
 <script setup lang="ts">
-const { data: books, refresh, pending } =
-    await useFetch('http://localhost:8080/api/books')
+import { ref, watchEffect } from 'vue'
+import { useBooks } from '~/composables/useBooks'
+import BooksHeader from './BooksHeader.vue'
+import BooksGrid from './BooksGrid.vue'
+import BookCreateModal from './BookCreateModal.vue'
 
+const { books, fetchBooks, loading } = useBooks() // <- реактивный массив books
 const isModalOpen = ref(false)
+const pending = ref(true)
+
+// pending синхронизирован с состоянием загрузки
+watchEffect(() => {
+  pending.value = loading.value
+})
+
+// начальная загрузка
+fetchBooks()
+
+async function refreshBooks() {
+  await fetchBooks() // обновляем массив реактивно
+}
 
 async function deleteBook(id: number) {
   if (!confirm('Вы уверены, что хотите удалить эту книгу?')) return
-
   try {
-    await $fetch(`http://localhost:8080/api/books/${id}`, { method: 'DELETE' })
-    refresh()
+    await fetch(`/api/books/${id}`, { method: 'DELETE' })
+    await refreshBooks() // сразу обновляем список после удаления
   } catch (e) {
     console.error('Ошибка при удалении:', e)
   }
-}
-
-function refreshBooks() {
-  refresh()
 }
 </script>

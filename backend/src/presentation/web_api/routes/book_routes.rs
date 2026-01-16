@@ -6,8 +6,8 @@ use crate::application::service::book_service::BookService;
 
 pub fn book_routes(service: Arc<BookService>) -> Router {
     Router::new()
-        .route("/books", post(create_book).get(get_all_books))
-        .route("/books/:id",
+        .route("/api/books", post(create_book).get(get_all_books))
+        .route("/api/books/:id",
                get(get_book_by_id)
                    .put(update_book)
                    .delete(delete_book)

@@ -1,32 +1,19 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
+// nuxt.config.ts
 export default defineNuxtConfig({
-  pages: true,
-
   modules: [
     '@nuxt/eslint',
     '@nuxt/ui'
   ],
 
-  devtools: {
-    enabled: true
-  },
-
   css: ['~/assets/css/main.css'],
 
+  devtools: { enabled: true },
+
   routeRules: {
-    '/': { prerender: true }
+    '/': { prerender: true },
+    '/books/**': { ssr: true },
+    '/authors/**': { ssr: true }
   },
 
-   
-
-  compatibilityDate: '2025-01-15',
-
-  eslint: {
-    config: {
-      stylistic: {
-        commaDangle: 'never',
-        braceStyle: '1tbs'
-      }
-    }
-  }
+  compatibilityDate: '2025-01-15'
 })

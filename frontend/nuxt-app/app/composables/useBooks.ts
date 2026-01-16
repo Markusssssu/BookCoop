@@ -1,39 +1,40 @@
+// composables/useBooks.ts
 import { ref } from 'vue'
-
-const API_URL = 'http://localhost:8080/api/books'
+import type { Book, NewBook } from '~/types'
 
 export function useBooks() {
-  const books = ref<any[]>([])
-  const loadingList = ref(false)
+  const books = ref<Book[]>([])
+  const loading = ref(false)
+  const error = ref<string | null>(null)
 
-  async function fetchBooks() {
-    loadingList.value = true
+  const fetchBooks = async () => {
+    loading.value = true
+    error.value = null
     try {
-      books.value = await $fetch(API_URL)
+      const res = await fetch('http://localhost:8080/api/books')
+      if (!res.ok) throw new Error('Failed to fetch books')
+      books.value = await res.json()
+    } catch (e: any) {
+      error.value = e.message
     } finally {
-      loadingList.value = false
+      loading.value = false
     }
   }
 
-  async function createBook(payload: any) {
-    await $fetch(API_URL, {
-      method: 'POST',
-      body: payload
-    })
-    await fetchBooks()
+  const createBook = async (payload: NewBook) => {
+    try {
+      const res = await fetch('http://localhost:8080/api/books', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      if (!res.ok) throw new Error('Failed to create book')
+      const newBook = await res.json()
+      books.value.push(newBook)
+    } catch (e: any) {
+      error.value = e.message
+    }
   }
 
-  async function deleteBook(payload: any) {
-    await $fetch(API_URL, {
-      method: "DELETE",
-      body: payload
-    })
-  }
-
-  return {
-    books,
-    loadingList,
-    fetchBooks,
-    createBook
-  }
+  return { books, loading, error, fetchBooks, createBook }
 }

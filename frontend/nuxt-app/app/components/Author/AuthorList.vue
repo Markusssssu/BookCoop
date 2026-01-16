@@ -8,7 +8,7 @@
       <div v-else class="divide-y divide-gray-200 dark:divide-gray-800">
         <AuthorListItem
             v-for="author in authors"
-            :key="author.id"
+            :key="author.author_id"
             :author="author"
         />
       </div>
@@ -18,7 +18,6 @@
 
 <script setup lang="ts">
 import AuthorListItem from './AuthorListItem.vue'
-
 defineProps<{
   authors: any[]
   pending: boolean

@@ -6,8 +6,8 @@ use crate::presentation::web_api::handler::book_issues_handler::*;
 
 pub fn book_issues_routes(service: Arc<BookIssueService>) -> Router {
     Router::new()
-        .route("/issues", post(create_issue).get(get_all_issues))
-        .route("/issues/:id",
+        .route("/api/issues", post(create_issue).get(get_all_issues))
+        .route("/api/issues/:id",
                get(get_issue_by_id)
                    .put(update_issue)
                    .delete(delete_issue)

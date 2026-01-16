@@ -4,7 +4,11 @@
       <h3 class="text-xl font-semibold text-primary">Карточка автора</h3>
     </template>
 
-    <UForm :state="state" @submit="onSubmit" class="space-y-4">
+    <UForm
+        :state="state"
+        @submit.prevent="onSubmit"
+        class="space-y-4"
+    >
       <UFormField label="Полное имя" name="name" required>
         <UInput v-model="state.name" icon="i-lucide-user" />
       </UFormField>
@@ -14,7 +18,11 @@
       </UFormField>
 
       <UFormField label="Биография" name="bio">
-        <UTextarea v-model="state.bio" placeholder="Краткая информация..." autoresize />
+        <UTextarea
+            v-model="state.bio"
+            placeholder="Краткая информация..."
+            autoresize
+        />
       </UFormField>
 
       <UButton type="submit" variant="soft" color="secondary" block>
@@ -25,13 +33,32 @@
 </template>
 
 <script setup lang="ts">
+import { reactive } from 'vue'
+import { useAuthors } from '~/composables/useAuthors'
+
+const { createAuthor } = useAuthors()
+const emit = defineEmits(['success'])
+
 const state = reactive({
   name: '',
   birthDate: '',
   bio: ''
 })
 
-async function onSubmit(event: any) {
-  console.log('Данные автора:', event.data)
+async function onSubmit() {
+  if (!state.name.trim()) return
+
+  await createAuthor({
+    full_name: state.name,
+    date_of_birth: state.birthDate || null,
+    biography: state.bio
+  })
+
+  emit('success')
+
+  // сброс формы
+  state.name = ''
+  state.birthDate = ''
+  state.bio = ''
 }
 </script>

@@ -6,9 +6,7 @@
       </div>
 
       <div class="flex-1 min-w-0">
-        <h3 class="font-bold text-lg truncate" :title="book.title">
-          {{ book.title }}
-        </h3>
+        <h3 class="font-bold text-lg truncate" :title="book.title">{{ book.title }}</h3>
         <p class="text-sm text-gray-500 truncate">{{ book.author }}</p>
 
         <div class="flex flex-wrap gap-2 mt-2">
