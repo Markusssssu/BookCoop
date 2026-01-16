@@ -16,6 +16,8 @@ async fn main() -> Result<(), Box<dyn Error>> {
     dotenv().ok();
     env_logger::init_from_env(env_logger::Env::new().default_filter_or("info"));
 
+    //DB_URL=postgresql://postgres:Gjitkyf[eq102@localhost:5432/bookcoop
+
     let db = PgPoolOptions::new()
         .max_connections(5)
         .connect(&env::var("DB_URL").unwrap())
