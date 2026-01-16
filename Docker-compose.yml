@@ -7,21 +7,24 @@ services:
     environment:
       POSTGRES_DB: bookcoop
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: Gjitkyf[eq102
+      POSTGRES_PASSWORD: "Gjitkyf[eq102"
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+
   backend:
     build:
       context: ./backend
     restart: unless-stopped
-    command: cargo run
+    tty: true
+    stdin_open: true
     ports:
       - "8080:8080"
     environment:
-      DATABASE_URL: postgres://postgres:${POSTGRES_PASSWORD}@db:5432/bookcoop
+      # URL с закодированным символом [
+      DATABASE_URL: postgres://postgres:Gjitkyf%5Beq102@db:5432/bookcoop
     depends_on:
       - db
     volumes:
