@@ -31,7 +31,6 @@ async fn main() -> Result<(), Box<dyn Error>> {
     log::info!("starting HTTP server at http://localhost:8080");
 
     let app = Router::new()
-        .route("/", get(|| async { "Hello, world!" }))
         .route("/api/health", get(|| async { StatusCode::OK }));
 
     let listner = tokio::net::TcpListener::bind("0.0.0.0:8080").await.unwrap();
