@@ -1,5 +1,7 @@
 use async_trait::async_trait;
-use sqlx::{PgPool, FromRow};
+use sqlx::PgPool;
+use anyhow::Result;
+
 use crate::application::repositories::admin_repository::AdminRepository;
 use crate::domain::admin::{Admin, NewAdmin};
 
@@ -9,22 +11,24 @@ pub struct SQLAdminRepository {
 
 #[async_trait]
 impl AdminRepository for SQLAdminRepository {
-    async fn insert(&self, admin: NewAdmin) -> Result<Admin, anyhow::Error> {
+
+    async fn insert(&self, admin: NewAdmin) -> Result<Admin> {
         let row = sqlx::query_as::<_, Admin>(
             r#"
             INSERT INTO Admin (full_name, keyword)
             VALUES ($1, $2)
+            RETURNING admin_id, full_name, keyword
             "#
         )
             .bind(admin.full_name)
-            .bind(admin.keywords)
+            .bind(admin.keyword)
             .fetch_one(&self.pool)
             .await?;
 
         Ok(row)
     }
 
-    async fn find_all(&self) -> Result<Vec<Admin>, anyhow::Error> {
+    async fn find_all(&self) -> Result<Vec<Admin>> {
         let rows = sqlx::query_as::<_, Admin>(
             "SELECT admin_id, full_name, keyword FROM Admin"
         )
@@ -34,7 +38,7 @@ impl AdminRepository for SQLAdminRepository {
         Ok(rows)
     }
 
-    async fn find_by_id(&self, id: i32) -> Result<Option<Admin>, anyhow::Error> {
+    async fn find_by_id(&self, id: i32) -> Result<Option<Admin>> {
         let row = sqlx::query_as::<_, Admin>(
             "SELECT admin_id, full_name, keyword FROM Admin WHERE admin_id = $1"
         )
@@ -45,7 +49,7 @@ impl AdminRepository for SQLAdminRepository {
         Ok(row)
     }
 
-    async fn find_by_full_name(&self, full_name: &str) -> Result<Vec<Admin>, anyhow::Error> {
+    async fn find_by_full_name(&self, full_name: &str) -> Result<Vec<Admin>> {
         let rows = sqlx::query_as::<_, Admin>(
             "SELECT admin_id, full_name, keyword FROM Admin WHERE full_name ILIKE $1"
         )
@@ -56,7 +60,7 @@ impl AdminRepository for SQLAdminRepository {
         Ok(rows)
     }
 
-    async fn update(&self, id: i32, admin: NewAdmin) -> Result<Admin, anyhow::Error> {
+    async fn update(&self, id: i32, admin: NewAdmin) -> Result<Admin> {
         let row = sqlx::query_as::<_, Admin>(
             r#"
             UPDATE Admin
@@ -66,7 +70,7 @@ impl AdminRepository for SQLAdminRepository {
             "#
         )
             .bind(admin.full_name)
-            .bind(admin.keywords)
+            .bind(admin.keyword)
             .bind(id)
             .fetch_one(&self.pool)
             .await?;
@@ -74,7 +78,7 @@ impl AdminRepository for SQLAdminRepository {
         Ok(row)
     }
 
-    async fn delete(&self, id: i32) -> Result<(), anyhow::Error> {
+    async fn delete(&self, id: i32) -> Result<()> {
         sqlx::query("DELETE FROM Admin WHERE admin_id = $1")
             .bind(id)
             .execute(&self.pool)
