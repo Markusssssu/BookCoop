@@ -1,8 +1,8 @@
 use axum::{Router, routing::{get, post, put, delete}};
 use std::sync::Arc;
 
-use crate::presentation::http::handlers::book_handlers::*;
-use crate::application::services::book_service::BookService;
+use crate::presentation::web_api::handler::book_handler::*;
+use crate::application::service::book_service::BookService;
 
 pub fn book_routes(service: Arc<BookService>) -> Router {
     Router::new()

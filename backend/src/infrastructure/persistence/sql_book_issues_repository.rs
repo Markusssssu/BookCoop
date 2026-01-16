@@ -1,10 +1,10 @@
 use async_trait::async_trait;
-use sqlx::{PgPool, Row, FromRow};
+use sqlx::PgPool;
 use crate::application::repositories::book_issues_repository::BookIssuesRepository;
 use crate::domain::book_issues::{BookIssue, NewBookIssue};
 
 pub struct SQLBookIssuesRepository {
-    pool: PgPool,
+    pub pool: PgPool,
 }
 
 #[async_trait]
@@ -89,7 +89,6 @@ impl BookIssuesRepository for SQLBookIssuesRepository {
             .bind(id)
             .execute(&self.pool)
             .await?;
-
         Ok(())
     }
 }

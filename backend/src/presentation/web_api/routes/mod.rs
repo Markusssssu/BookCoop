@@ -5,7 +5,7 @@ use crate::application::service::{
     book_service::BookService,
     author_service::AuthorService,
     admin_service::AdminService,
-    book_issues_service::BookIssuesService,
+    book_issues_service::BookIssueService,
 };
 
 pub mod book_routes;
@@ -17,11 +17,11 @@ pub fn app_routes(
     book: Arc<BookService>,
     author: Arc<AuthorService>,
     admin: Arc<AdminService>,
-    issues: Arc<BookIssuesService>,
+    issues: Arc<BookIssueService>,
 ) -> Router {
     Router::new()
         .merge(book_routes::book_routes(book))
         .merge(author_routes::author_routes(author))
-        .merge(admin_routes::admin_routes(admin))
+        // .merge(admin_routes::admin_routes(admin))
         .merge(book_issues_routes::book_issues_routes(issues))
 }

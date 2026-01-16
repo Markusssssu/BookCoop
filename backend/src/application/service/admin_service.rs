@@ -20,20 +20,23 @@ impl AdminService {
             .ok_or_else(|| anyhow::anyhow!("Администратор с ID {} не найден", id))
     }
 
-    pub async fn update_admin(&self, id: i32, data: NewAdmin) -> Result<Admin, anyhow::Error> {
-        // Сначала проверяем, существует ли он
-        self.get_admin_by_id(id).await?;
+    pub async fn create_admin(&self, data: NewAdmin) -> Result<Admin, anyhow::Error> {
+        if data.full_name.trim().is_empty() || data.keyword.trim().is_empty() {
+            return Err(anyhow::anyhow!("Имя и ключевые слова не могут быть пустыми"));
+        }
+        self.repository.insert(data).await
+    }
 
+    pub async fn update_admin(&self, id: i32, data: NewAdmin) -> Result<Admin, anyhow::Error> {
+        self.get_admin_by_id(id).await?;
         self.repository.update(id, data).await
     }
 
     pub async fn delete_admin(&self, id: i32) -> Result<(), anyhow::Error> {
-        // Можно добавить логику, чтобы нельзя было удалить "последнего" админа
         let all = self.repository.find_all().await?;
         if all.len() <= 1 {
             return Err(anyhow::anyhow!("Нельзя удалить последнего администратора в системе"));
         }
-
         self.repository.delete(id).await
     }
 

@@ -12,7 +12,7 @@ impl BookService {
     }
 
     pub async fn create_book(&self, book_data: NewBook) -> Result<Book, anyhow::Error> {
-        if book_data.title.is_empty() {
+        if book_data.title.trim().is_empty() {
             return Err(anyhow::anyhow!("Название книги не может быть пустым"));
         }
         self.repository.insert(book_data).await
